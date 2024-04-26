@@ -37,7 +37,7 @@ public class Main {
         }
 
         // Parking de muestra
-        MegaParking test = new MegaParking("Plaza de España", 1, 2, 2);
+        MegaParking test = new MegaParking("Plaza de Progres", 1, 2, 2);
         // Vehiculos de muestra
         Coche C1 = new Coche("1422 KDF", false);
         Moto M1 = new Moto("4125 MGG", false);
