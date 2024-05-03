@@ -1,7 +1,8 @@
-# Park and Run
+# 🚗 Park and Run 🏍️
 
+### 👨‍💻 Rafel Amengual Tomás
 
-
+# 📜 Información del contenido del proyecto
 Mi proyecto consta de una clase abstracta llamada Parking que contiene diferentes metodos, esta tiene una clase hija llamada MegaParking que implementa metodos nuevos y permite que el parking tenga más de 1 planta, estas dos tienen una interface llamada Acciones que no permite cerrar y abrir puertas, apagar y encender luces.
 
 Aparte de esto se ha creado una clase abstracta llamada Vehiculo que implementa los atributos principales que puede tener un 
@@ -12,9 +13,10 @@ En el Main esta la información general que se puede conseguir mediante los meto
 
 Se ha creado una Exception que salta cuando el parking no tiene el suficiente espacio para que entre una moto o un coche.
 
-## Enunciado del proyecto
-[park_and_run (2).pdf](https://github.com/RafelAm/Park-And-Run/files/15201151/park_and_run.2.pdf)
+## 📕 Enunciado del proyecto
+![image](https://github.com/RafelAm/Park-And-Run/assets/147522281/30c7fac5-679c-41b9-a1e0-042340d06360)
 
-### Advertencia:
+
+### ⚠️ Advertencia:
 
 Del encunciado se ha obiado que en una plaza de coche caben dos motos, cada uno tiene sus plazas.
