@@ -11,3 +11,10 @@ una es la clase Coche que contiene una String por default que nos indica que es 
 En el Main esta la información general que se puede conseguir mediante los metodos del Parking y el MegaParking, Aparte se crea el objeto MegaParking y los objetos coche y moto. estos se le añaden al objeto MegaParking.
 
 Se ha creado una Exception que salta cuando el parking no tiene el suficiente espacio para que entre una moto o un coche.
+
+## Enunciado del proyecto
+[park_and_run (2).pdf](https://github.com/RafelAm/Park-And-Run/files/15201151/park_and_run.2.pdf)
+
+### Advertencia:
+
+Del encunciado se ha obiado que en una plaza de coche caben dos motos, cada uno tiene sus plazas.
