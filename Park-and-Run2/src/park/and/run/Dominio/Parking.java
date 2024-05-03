@@ -125,6 +125,10 @@ public abstract class Parking implements Acciones {
 
     }
 
+    public void remove(Vehiculo vehiculo){
+        parked.remove(vehiculo);
+    }
+    
     // Getter de las ganancias totales si todos los vehiculos que hubiese en el parking se marcharan
     public int getGanancias() {
         int gTotales = 0;
@@ -176,7 +180,7 @@ public abstract class Parking implements Acciones {
             this.status = true;
             encenderLuces();
         } else {
-            System.out.println("El parking ya esta cerrado.");
+            System.out.println("El parking ya esta abierto.");
         }
     }
 }

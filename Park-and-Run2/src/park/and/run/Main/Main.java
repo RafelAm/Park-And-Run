@@ -74,6 +74,7 @@ public class Main {
             test.addVehiculoPlantas(C4);
             test.addVehiculoPlantas(C5);
         }
+       
         test.addVehiculosSQL(url, usuario, contraseña);
 
         // Información general del Parking

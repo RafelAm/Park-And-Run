@@ -29,4 +29,6 @@ public class Moto extends Vehiculo {
     public String toString() {
         return "Moto:" + matricula;
     }
+
+
 }
