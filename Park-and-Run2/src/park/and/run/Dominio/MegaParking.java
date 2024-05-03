@@ -80,7 +80,7 @@ public class MegaParking extends Parking {
                 throw new NotSpaceForParking("El vehiculo " + Coche.toString() + " no puede acceder porque no hay espacio.");
             }
 
-            if (Coche.getIdentificador() == "Coche" && getCapacidadCoches() < getPlazasPorPlantaCoche()) {
+            if (Coche.getIdentificador() == "Coche" && getCapacidadCoches() < getPlazasPorPlantaCoche() && status == true) {
                 parked.add(Coche);
             }
         } catch (NotSpaceForParking e) {
@@ -93,7 +93,7 @@ public class MegaParking extends Parking {
             if (getCapacidadMotos() == getPlazasPorPlantaMoto()) {
                 throw new NotSpaceForParking("El vehiculo " + Moto.toString() + " no puede acceder porque no hay espacio.");
             }
-            if (Moto.getIdentificador() == "Moto" && getCapacidadMotos() < getPlazasPorPlantaMoto()) {
+            if (Moto.getIdentificador() == "Moto" && getCapacidadMotos() < getPlazasPorPlantaMoto() && status == true) {
                 parked.add(Moto);
             }
         } catch (NotSpaceForParking e) {

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author raffs
  */
-public abstract class Parking {
+public abstract class Parking implements Acciones {
 
     // Nombre del Parking
     final String nombre;
@@ -26,12 +26,15 @@ public abstract class Parking {
     // Lista donde se van a guardar los vehiculos que entran
     public final List<Vehiculo> parked;
 
+    public boolean status;
+
     // Constructor
     public Parking(String nombre, int plazasMotos, int plazasCoches) {
         this.nombre = nombre;
         this.plazasMotos = plazasMotos;
         this.plazasCoches = plazasCoches;
         parked = new ArrayList<>();
+        this.status = true;
     }
 
     // Getter del nombre del Parking
@@ -59,6 +62,10 @@ public abstract class Parking {
         return new ArrayList<>(parked);
     }
 
+    public boolean getSatus() {
+        return status;
+    }
+
     // Getter para sacar la capacidad total de todos los vehiculos
     public int getCapacidad() {
         return getPlazasMotos() + getPlazasCoches();
@@ -67,12 +74,13 @@ public abstract class Parking {
     // Getter para sacar la capacidad total de las motos
     public int getCapacidadMoto() {
         int plazasMaxMotos = 0;
-
+       
         for (Vehiculo Moto : parked) {
             if (Moto.getIdentificador() == "Moto" && plazasMaxMotos < getPlazasMotos()) {
                 plazasMaxMotos++;
             }
         }
+      
         return plazasMaxMotos;
     }
 
@@ -87,6 +95,7 @@ public abstract class Parking {
         }
         return plazasMaxCoches;
     }
+
     // Setter para introducir los vehiculos en el parking, mirando a ver si hay plazas disponibles
     public void addVehiculo(Coche Coche) {
         try {
@@ -94,7 +103,7 @@ public abstract class Parking {
                 throw new NotSpaceForParking("El vehiculo " + Coche.toString() + " no puede acceder porque no hay espacio.");
             }
 
-            if (Coche.getIdentificador() == "Coche" && getCapacidadCoche() < getPlazasCoches()) {
+            if (Coche.getIdentificador() == "Coche" && getCapacidadCoche() < getPlazasCoches() && status == true) {
                 parked.add(Coche);
             }
         } catch (NotSpaceForParking e) {
@@ -107,7 +116,7 @@ public abstract class Parking {
             if (getCapacidadMoto() == getPlazasMotos()) {
                 throw new NotSpaceForParking("El vehiculo " + Moto.toString() + " no puede acceder porque no hay espacio.");
             }
-            if (Moto.getIdentificador() == "Moto" && getCapacidadMoto() < getPlazasMotos()) {
+            if (Moto.getIdentificador() == "Moto" && getCapacidadMoto() < getPlazasMotos() && status == true) {
                 parked.add(Moto);
             }
         } catch (NotSpaceForParking e) {
@@ -131,6 +140,7 @@ public abstract class Parking {
         }
         return gTotales;
     }
+
     // Getter oara conseguir el numero de trabajadores en el parking
     public int getTrabajadores() {
         int trabajadores = 0;
@@ -140,5 +150,33 @@ public abstract class Parking {
             }
         }
         return trabajadores;
+    }
+
+    public void apagarLuces() {
+        System.out.println("Apagando luces");
+    }
+
+    public void encenderLuces() {
+        System.out.println("Encendiendo luces");
+    }
+
+    public void cerrarPuertas() {
+        if (status == true) {
+            System.out.println("Cerrando puertas.");
+            this.status = false;
+            apagarLuces();
+        } else {
+            System.out.println("El parking ya esta cerrado.");
+        }
+    }
+
+    public void abrirPuertas() {
+        if (status == false) {
+            System.out.println("Abriendo puertas.");
+            this.status = true;
+            encenderLuces();
+        } else {
+            System.out.println("El parking ya esta cerrado.");
+        }
     }
 }
