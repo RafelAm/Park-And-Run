@@ -17,6 +17,6 @@ Se ha creado una Exception que salta cuando el parking no tiene el suficiente es
 ![image](https://github.com/RafelAm/Park-And-Run/assets/147522281/30c7fac5-679c-41b9-a1e0-042340d06360)
 
 
-### ⚠️ Advertencia:
+### ⚠️ Advertencia
 
 Del encunciado se ha obiado que en una plaza de coche caben dos motos, cada uno tiene sus plazas.
