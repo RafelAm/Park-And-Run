@@ -12,11 +12,12 @@ package Vehiculos;
 public abstract class Vehiculo{
 
     // Matricula del vehiculo para poder identificar cada vehiculo
-    final String matricula;
+    protected String matricula;
     // Booleano que nos indica si trabaja en el parking
     // Si trabaja en el parking esta exento de pagar.
-    private final boolean trabajador;
-
+    protected final boolean trabajador;
+    
+    
     // Constructor
     public Vehiculo(String matricula, boolean trabajador) {
         this.matricula = matricula;
@@ -32,6 +33,8 @@ public abstract class Vehiculo{
     public String getMatricula(){
         return matricula;
     }
+    
+    public abstract String toString();
 
     public String getIdentificador() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

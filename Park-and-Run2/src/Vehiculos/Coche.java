@@ -13,6 +13,7 @@ public class Coche extends Vehiculo{
         super(matricula, trabajador);
         this.identificador = "Coche";
     }
+
     // Getter del identificador
     public String getIdentificador() {
         return identificador;

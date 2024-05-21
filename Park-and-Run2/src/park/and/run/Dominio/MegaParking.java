@@ -32,9 +32,9 @@ public class MegaParking extends Parking {
         super(nombre, plazasMotos, plazasCoches);
         this.plantas = plantas;
     }
-    
+
     public MegaParking() {
-        
+
     }
 
     // Getter para sacar las plantas.
@@ -56,6 +56,7 @@ public class MegaParking extends Parking {
     public int getPlazasPorPlantaCoche() {
         return (plazasCoches * plantas);
     }
+
     // Getter para conseguir la capacidad de los coches
     public int getCapacidadCoches() {
         int plazasMaxCoche = 0;
@@ -67,6 +68,7 @@ public class MegaParking extends Parking {
         }
         return plazasMaxCoche;
     }
+
     // Getter para conseguir la capacidad de las motos
     public int getCapacidadMotos() {
         int plazasMaxMoto = 0;
@@ -91,6 +93,10 @@ public class MegaParking extends Parking {
 
             if (Coche.getIdentificador() == "Coche" && getCapacidadCoches() < getPlazasPorPlantaCoche() && status == true) {
                 parked.add(Coche);
+            } else if (status == false) {
+                System.out.println("-----------------------------");
+                System.out.println("El Parking se encuentra cerrado");
+                System.out.println("-----------------------------");
             }
         } catch (NotSpaceForParking e) {
             System.out.println(e.getMessage());
@@ -104,6 +110,10 @@ public class MegaParking extends Parking {
             }
             if (Moto.getIdentificador() == "Moto" && getCapacidadMotos() < getPlazasPorPlantaMoto() && status == true) {
                 parked.add(Moto);
+            } else if (status == false) {
+                System.out.println("-----------------------------");
+                System.out.println("El Parking se encuentra cerrado");
+                System.out.println("-----------------------------");
             }
         } catch (NotSpaceForParking e) {
             System.out.println(e.getMessage());
@@ -140,17 +150,19 @@ public class MegaParking extends Parking {
             System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
     }
-    
-    public void remVehiculo(String matricula){
-        for(Vehiculo vehiculo: parked){
-            if(vehiculo.getMatricula() == matricula){
-                parked.remove(vehiculo);
+
+    public void remVehiculo(String matricula) {
+        for (int i = 0; i < parked.size(); i++) {
+
+            if (matricula.equals(parked.get(i).getMatricula())) {
+                System.out.println("Vehiculo recogido.");
+                parked.remove(i);
             }
-            
+
         }
     }
-    
-    public void revTickets(){
+
+    public void revTickets() {
         WriteTicket t;
         for (int i = 0; i < parked.size(); i++) {
             t = new WriteTicket();
@@ -160,6 +172,5 @@ public class MegaParking extends Parking {
     public void add() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
 }

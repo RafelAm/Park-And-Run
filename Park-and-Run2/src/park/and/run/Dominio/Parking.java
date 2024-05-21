@@ -36,8 +36,9 @@ public abstract class Parking implements Acciones {
         parked = new ArrayList<>();
         this.status = true;
     }
-        public Parking() {
-            
+
+    public Parking() {
+
     }
 
     // Getter del nombre del Parking
@@ -62,25 +63,23 @@ public abstract class Parking implements Acciones {
 
     // Getter para consultar los vehiculos aparcados en el interior del parking
     public List<Vehiculo> getParked() {
-        return new ArrayList<>(parked);
+        return parked;
     }
 
     public boolean getSatus() {
         return status;
     }
 
-
-
     // Getter para sacar la capacidad total de las motos
     public int getCapacidadMoto() {
         int plazasMaxMotos = 0;
-       
+
         for (Vehiculo Moto : parked) {
             if (Moto.getIdentificador() == "Moto" && plazasMaxMotos < getPlazasMotos()) {
                 plazasMaxMotos++;
             }
         }
-      
+
         return plazasMaxMotos;
     }
 
@@ -95,7 +94,8 @@ public abstract class Parking implements Acciones {
         }
         return plazasMaxCoche;
     }
-        // Getter para sacar la capacidad total de todos los vehiculos
+    // Getter para sacar la capacidad total de todos los vehiculos
+
     public int getCapacidad() {
         return getCapacidadMoto() + getCapacidadCoche();
     }
@@ -109,6 +109,10 @@ public abstract class Parking implements Acciones {
 
             if (Coche.getIdentificador() == "Coche" && getCapacidadCoche() < getPlazasCoches() && status == true) {
                 parked.add(Coche);
+            } else if (status == false) {
+                System.out.println("-----------------------------");
+                System.out.println("El Parking se encuentra cerrado");
+                System.out.println("-----------------------------");
             }
         } catch (NotSpaceForParking e) {
             System.out.println(e.getMessage());
@@ -122,6 +126,10 @@ public abstract class Parking implements Acciones {
             }
             if (Moto.getIdentificador() == "Moto" && getCapacidadMoto() < getPlazasMotos() && status == true) {
                 parked.add(Moto);
+            } else if (status == false) {
+                System.out.println("-----------------------------");
+                System.out.println("El Parking se encuentra cerrado");
+                System.out.println("-----------------------------");
             }
         } catch (NotSpaceForParking e) {
             System.out.println(e.getMessage());
@@ -129,10 +137,16 @@ public abstract class Parking implements Acciones {
 
     }
 
-    public void remoVehiculo(String matricula){
-        parked.remove(matricula);
+    public void remVehiculo(String matricula) {
+        for (int i = 0; i < parked.size(); i++) {
+            if (matricula.equals(parked.get(i).getMatricula())) {
+                System.out.println("Vehiculo recogido.");
+                parked.remove(i);
+            }
+
+        }
     }
-    
+
     // Getter de las ganancias totales si todos los vehiculos que hubiese en el parking se marcharan
     public int getGanancias() {
         int gTotales = 0;
