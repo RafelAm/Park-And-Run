@@ -74,14 +74,14 @@ public class Main {
                     if (tipo == 1) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.next();
-                        Coche test = new Coche(matricula.replaceAll(" ", ""), false);
+                        Coche test = new Coche(matricula, false);
                         Parking1.addVehiculo(test);
 
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.next();
 
-                        Moto test = new Moto(matricula.replaceAll(" ", ""), false);
+                        Moto test = new Moto(matricula, false);
                         Parking1.addVehiculo(test);
                     }
 
@@ -142,7 +142,7 @@ public class Main {
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.next();
-                        Moto test = new Moto(matricula.replaceAll(" ", "_"), false);
+                        Moto test = new Moto(matricula, false);
                         Parking2.addVehiculoPlantas(test);
                     }
                     // Creación del Ticket 
@@ -197,12 +197,12 @@ public class Main {
                     if (tipo == 1) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.next();
-                        Coche test = new Coche(matricula.replaceAll(" ", ""), false);
+                        Coche test = new Coche(matricula, false);
                         Parking3.addVehiculoPlantas(test);
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.next();
-                        Moto test = new Moto(matricula.replaceAll(" ", ""), false);
+                        Moto test = new Moto(matricula, false);
                         Parking3.addVehiculoPlantas(test);
                     }
                     try {

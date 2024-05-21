@@ -1,12 +1,12 @@
-  - Passeig Maritim Palma -  
+  - Carrer Aragon -  
 ***********************
 Fecha y hora:
-Tue May 21 19:25:47 CEST 2024
+Tue May 21 19:25:53 CEST 2024
 
 Matricula de tu vehiculo:
-12345
+1234
 
 ***********************
 Precio por vehiculo:
-Coche: 4€
+Moto: 2€
 ***********************
