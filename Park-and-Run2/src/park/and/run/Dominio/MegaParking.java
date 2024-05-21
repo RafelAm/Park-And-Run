@@ -5,6 +5,7 @@
 package park.and.run.Dominio;
 
 import Exceptions.NotSpaceForParking;
+import Tickets.WriteTicket;
 import Vehiculos.Coche;
 import Vehiculos.Moto;
 import Vehiculos.Vehiculo;
@@ -19,13 +20,21 @@ import java.sql.SQLException;
  */
 public class MegaParking extends Parking {
 
+    static Parking getLast() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     // Integer del numero de plantas que tiene el parking.
-    private final int plantas;
+    private int plantas;
 
     // Constructor
     public MegaParking(String nombre, int plazasMotos, int plazasCoches, int plantas) {
         super(nombre, plazasMotos, plazasCoches);
         this.plantas = plantas;
+    }
+    
+    public MegaParking() {
+        
     }
 
     // Getter para sacar las plantas.
@@ -130,6 +139,21 @@ public class MegaParking extends Parking {
         } catch (SQLException e) {
             System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
+    }
+    
+    public void remVehiculo(String matricula){
+        parked.remove(matricula);
+    }
+    
+    public void revTickets(){
+        WriteTicket t;
+        for (int i = 0; i < parked.size(); i++) {
+            t = new WriteTicket();
+        }
+    }
+
+    public void add() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

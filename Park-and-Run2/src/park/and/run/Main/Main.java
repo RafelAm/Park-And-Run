@@ -9,7 +9,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import Vehiculos.Coche;
 import Vehiculos.Moto;
+import Vehiculos.Vehiculo;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Date;
 import park.and.run.Dominio.MegaParking;
+import java.util.Scanner;
 
 /**
  *
@@ -21,6 +26,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         // Parámetros de conexión
         String url = "jdbc:mariadb://localhost:3306/park-and-run";
         String usuario = "root";
@@ -30,76 +36,317 @@ public class Main {
         try {
             Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
             System.out.println("Conexión exitosa a la base de datos MariaDB");
-            
+
             conexion.close();
         } catch (SQLException e) {
             System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
 
-        // Parking de muestra
-        MegaParking test = new MegaParking("Plaza de Progres", 1, 2, 2);
-        
-        
-//        test.cerrarPuertas();
-//        test.abrirPuertas();
-        // Vehiculos de muestra
-        Coche C1 = new Coche("1422 KDF", false);
-        Moto M1 = new Moto("4125 MGG", false);
-        Coche C2 = new Coche("0024 BBD", false);
-        Moto M2 = new Moto("7455 JCD", false);
-        Moto M3 = new Moto("7455 JCD", false);
-        Coche C3 = new Coche("2014 DCS", false);
-        Coche C4 = new Coche("1542 CHL", false);
-        Coche C5 = new Coche("0021 BBD", false);
+        // Inicialización de Parkings por defecto
+        // Los parkings ya van a estar creados y solo debemos Indicar en cual estamos, y nos devolvera tickets etc.
+        MegaParking Parking1 = new MegaParking("Son Castelló", 10, 25, 0);
+        MegaParking Parking2 = new MegaParking("Passeig Maritim Palma", 25, 40, 2);
+        MegaParking Parking3 = new MegaParking("Carrer Aragon", 20, 35, 2);
 
-        // Introduccion de vehiculos al parking
-        // Si las plantas son 0 utiliza el metodo de la clase abstracta Parking77
-        // Si no la de MegaParking
-        if (test.getPlantas() == 0) {
-            test.addVehiculo(C1);
-            test.addVehiculo(M1);
-            test.addVehiculo(C2);
-            test.addVehiculo(M2);
-            test.addVehiculo(M3);
-            test.addVehiculo(C3);
-            test.addVehiculo(C4);
-            test.addVehiculo(C5);
-        } else {
-            test.addVehiculoPlantas(C1);
-            test.addVehiculoPlantas(M1);
-            test.addVehiculoPlantas(C2);
-            test.addVehiculoPlantas(M2);
-            test.addVehiculoPlantas(M3);
-            test.addVehiculoPlantas(C3);
-            test.addVehiculoPlantas(C4);
-            test.addVehiculoPlantas(C5);
-        }
-       
-        test.addVehiculosSQL(url, usuario, contraseña);
+        int opcionParking = 0;
+        String matricula = "";
+        int tipo = 0;
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        do {
+            System.out.println("Bienvenido al Sistema de Parkings para aparcar y salir a entrenar");
+            System.out.println("Los precios son: Moto 2€ Coche 4€ \n");
+            System.out.println("Indica el Parking en el que te encuentras porfavor");
+            System.out.println("1. Son Castello " + " | La capacidad esta al: " + Parking1.getCapacidad() + "/" + Parking1.getPlazas());
+            System.out.println("2. Passeig Maritim Palma " + " | Capacidad: " + Parking2.getCapacidadPlantas() + "/" + Parking2.getPlazasPorPlantas());
+            System.out.println("3. Carrer Aragón " + " | La capacidad esta al: " + Parking3.getCapacidadPlantas() + "/" + Parking3.getPlazasPorPlantas());
+            System.out.println("4. Opciones Avanzadas");
+            System.out.println("5. Salir");
+            opcionParking = Integer.parseInt(sc.nextLine());
 
-        // Información general del Parking
+            switch (opcionParking) {
+                case 1:
+                    System.out.println("Has seleccionado" + Parking1.getNombre());
+                    System.out.println("Porfavor indica que vehiculo llevas (Coche = 1 / Moto = 2)");
+                    tipo = Integer.parseInt(sc.nextLine());
+                    if (tipo == 1) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Coche test = new Coche(matricula, false);
+                        Parking1.addVehiculo(test);
+                    } else if (tipo == 2) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Moto test = new Moto(matricula, false);
+                        Parking1.addVehiculo(test);
+                    }
+
+                    try {
+                        int i = 0;
+                        Date current = new Date();
+                        for (Vehiculo vehiculo : Parking1.parked) {
+                            String ruta = "C:\\Users\\raffs\\Desktop\\Grado Superior DAW\\Programación\\Park-And-Run\\Tickets\\Ticket n" + i + ".txt";
+                            fichero = new FileWriter(ruta);
+                            // notacion para sistemas linux
+
+                            pw = new PrintWriter(fichero);
+                            pw.println("  - " + Parking1.getNombre() + " -  ");
+                            pw.println("***********************");
+                            pw.println("Fecha y hora:");
+                            pw.println(current);
+                            pw.println();
+                            pw.println("Matricula de tu vehiculo:");
+                            pw.println(vehiculo.getMatricula());
+                            pw.println();
+                            pw.println("***********************");
+                            pw.println("Precio por vehiculo:");
+                            if (tipo == 1) {
+                                pw.println("Coche: 4€");
+                            } else {
+                                pw.println("Moto: 2€");
+                            }
+                            pw.println("***********************");
+                            fichero.close();
+                            i++;
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            // Nuevamente aprovechamos el finally para
+                            // asegurarnos que se cierra el fichero.
+                            if (null != fichero) {
+                                fichero.close();
+                            }
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    Parking1.addVehiculosSQL(url, usuario, contraseña);
+
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado" + Parking2.getNombre());
+                    System.out.println("Porfavor indica que vehiculo llevas (Coche = 1 / Moto = 2)");
+                    tipo = Integer.parseInt(sc.nextLine());
+                    if (tipo == 1) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Coche test = new Coche(matricula, false);
+                        Parking2.addVehiculoPlantas(test);
+                    } else if (tipo == 2) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Moto test = new Moto(matricula, false);
+                        Parking2.addVehiculoPlantas(test);
+                    }
+                    // Creación del Ticket 
+                    try {
+                        int i = 0;
+                        Date current = new Date();
+                        for (Vehiculo vehiculo : Parking2.parked) {
+                            String ruta = "C:\\Users\\raffs\\Desktop\\Grado Superior DAW\\Programación\\Park-And-Run\\Tickets\\Ticket n" + i + ".txt";
+                            fichero = new FileWriter(ruta);
+                            // notacion para sistemas linux
+
+                            pw = new PrintWriter(fichero);
+                            pw.println("  - " + Parking2.getNombre() + " -  ");
+                            pw.println("***********************");
+                            pw.println("Fecha y hora:");
+                            pw.println(current);
+                            pw.println();
+                            pw.println("Matricula de tu vehiculo:");
+                            pw.println(vehiculo.getMatricula());
+                            pw.println();
+                            pw.println("***********************");
+                            pw.println("Precio por vehiculo:");
+                            if (tipo == 1) {
+                                pw.println("Coche: 4€");
+                            } else {
+                                pw.println("Moto: 2€");
+                            }
+                            pw.println("***********************");
+                            fichero.close();
+                            i++;
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            // Nuevamente aprovechamos el finally para
+                            // asegurarnos que se cierra el fichero.
+                            if (null != fichero) {
+                                fichero.close();
+                            }
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    Parking2.addVehiculosSQL(url, usuario, contraseña);
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado" + Parking3.getNombre());
+                    System.out.println("Porfavor indica que vehiculo llevas (Coche = 1 / Moto = 2)");
+                    tipo = Integer.parseInt(sc.nextLine());
+                    if (tipo == 1) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Coche test = new Coche(matricula, false);
+                        Parking3.addVehiculoPlantas(test);
+                    } else if (tipo == 2) {
+                        System.out.println("Introduce tu matricula");
+                        matricula = sc.nextLine();
+                        Moto test = new Moto(matricula, false);
+                        Parking3.addVehiculoPlantas(test);
+                    }
+                    try {
+                        int i = 0;
+                        Date current = new Date();
+                        for (Vehiculo vehiculo : Parking3.parked) {
+                            String ruta = "C:\\Users\\raffs\\Desktop\\Grado Superior DAW\\Programación\\Park-And-Run\\Tickets\\Ticket n" + i + ".txt";
+                            fichero = new FileWriter(ruta);
+                            // notacion para sistemas linux
+
+                            pw = new PrintWriter(fichero);
+                            pw.println("  - " + Parking3.getNombre() + " -  ");
+                            pw.println("***********************");
+                            pw.println("Fecha y hora:");
+                            pw.println(current);
+                            pw.println();
+                            pw.println("Matricula de tu vehiculo:");
+                            pw.println(vehiculo.getMatricula());
+                            pw.println();
+                            pw.println("***********************");
+                            pw.println("Precio por vehiculo:");
+                            if (tipo == 1) {
+                                pw.println("Coche: 4€");
+                            } else {
+                                pw.println("Moto: 2€");
+                            }
+                            pw.println("***********************");
+                            fichero.close();
+                            i++;
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            // Nuevamente aprovechamos el finally para
+                            // asegurarnos que se cierra el fichero.
+                            if (null != fichero) {
+                                fichero.close();
+                            }
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    Parking3.addVehiculosSQL(url, usuario, contraseña);
+                    break;
+                case 4:
+                    System.out.println("Introduce el Pin de Acceso:");
+                    int Pin = Integer.parseInt(sc.nextLine());
+                    int opcAvz = 0;
+                    int park = 0;
+                    if (Pin == 5544) {
+
+                        do {
+                            System.out.println("1. Ver Vehiculos Aparcados");
+                            System.out.println("2. Ver Vehiculos Trabajadores");
+                            System.out.println("3. Ver Ganancias Totales");
+                            System.out.println("4. Llamar a la grua");
+                            System.out.println("5. Salir");
+                            opcAvz = sc.nextInt();
+                            switch (opcAvz) {
+                                case 1:
+                                    System.out.println("Indica el Parking que quieres ver los vehiculos Aparcados");
+                                    System.out.println("1. " + Parking1.getNombre());
+                                    System.out.println("2. " + Parking2.getNombre());
+                                    System.out.println("3. " + Parking3.getNombre());
+                                    System.out.println("Introduce el numero de parking");
+                                    park = sc.nextInt();
+                                    if (park == 1) {
+                                        System.out.println(Parking1.getParked());
+                                    } else if (park == 2) {
+                                        System.out.println(Parking2.getParked());
+                                    } else if (park == 3) {
+                                        System.out.println(Parking3.getParked());
+                                    }
+                                    opcAvz = 0;
+                                    break;
+                                case 2:
+                                    System.out.println("Indica el Parking que quieres ver los vehiculos de Trabajadores");
+                                    System.out.println("1. " + Parking1.getNombre());
+                                    System.out.println("2. " + Parking2.getNombre());
+                                    System.out.println("3. " + Parking3.getNombre());
+                                    System.out.println("Introduce el numero de parking");
+                                    park = sc.nextInt();
+                                    if (park == 1) {
+                                        System.out.println(Parking1.getTrabajadores());
+                                    } else if (park == 2) {
+                                        System.out.println(Parking2.getTrabajadores());
+                                    } else if (park == 3) {
+                                        System.out.println(Parking3.getTrabajadores());
+                                    }
+                                    opcAvz = 0;
+                                    break;
+                                case 3:
+                                    System.out.println("Indica el Parking que quieres ver las Ganancias Totales");
+                                    System.out.println("1. " + Parking1.getNombre());
+                                    System.out.println("2. " + Parking2.getNombre());
+                                    System.out.println("3. " + Parking3.getNombre());
+                                    System.out.println("Introduce el numero de parking");
+                                    park = sc.nextInt();
+                                    if (park == 1) {
+                                        System.out.println("Dinero Total:" + Parking1.getGanancias() + "€");
+                                    } else if (park == 2) {
+                                        System.out.println("Dinero Total:" + Parking2.getGanancias() + "€");
+                                    } else if (park == 3) {
+                                        System.out.println("Dinero Total:" + Parking3.getGanancias() + "€");
+                                    }
+
+                                    opcAvz = 0;
+                                    break;
+                                case 4:
+                                    System.out.println("Indica el Parking del cual quieres sacar un vehiculo");
+                                    System.out.println("1. " + Parking1.getNombre());
+                                    System.out.println("2. " + Parking2.getNombre());
+                                    System.out.println("3. " + Parking3.getNombre());
+                                    System.out.println("Introduce el numero de parking");
+                                    int park1 = sc.nextInt();
+                                    switch(park1){
+                                        case 1:
+                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                        String matricula1 = sc.next();
+                                        Parking1.remove(matricula1);
+                                        System.out.println(Parking1.getParked());
+                                        break;
+                                        case 2:
+                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                        matricula1 = sc.next();
+                                        Parking2.remVehiculo(matricula1);
+                                        System.out.println(Parking2.getParked());
+                                        break;
+                                        case 3:
+                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                        matricula1 = sc.nextLine();
+                                        Parking3.remVehiculo(matricula1);
+                                        System.out.println(Parking3.getParked());
+                                        break;
+                                    }
+                                    opcAvz = 0;
+                                    break;
+                                    
+
+                            }
+                            opcionParking = 4;
+                        } while (opcAvz != 5);
+                    }
+                    break;
+            }
+        } while (opcionParking != 5);
         
-        // Muestra el nombre del parking
-        System.out.println("\nParking: " + test.getNombre());
-        // Muestra la lista de vehiculos en el parking
-        System.out.println("Vehiculos en el interior del Parking:" + "\n \n" + test.getParked() + "\n");
-        // Muestra cuantos vehiculos de trabajadores hay
-        System.out.println("Hay " + test.getTrabajadores() + " vehiculos de trabajadores.");
-
-        // Si las plantas son 0 
-        // Utiliza los metodos de la clase Parking
-        // Si no usa los de la clase MegaParking
-        if (test.getPlantas() == 0) {
-            System.out.println("Motos: " + test.getCapacidadMoto());
-            System.out.println("Coches: " + test.getCapacidadCoche() + "\n");
-            System.out.println("La capacidad esta al: " + test.getCapacidad() + "/" + test.getPlazas());
-        } else {
-            System.out.println("Motos: " + test.getPlazasPorPlantaMoto());
-            System.out.println("Coches: " + test.getPlazasPorPlantaCoche());
-            System.out.println("La capacidad esta al: " + test.getCapacidadPlantas() + "/" + test.getPlazasPorPlantas());
-        }
-        // Muestra las ganancias totales si los vehiculos saliesen del parking
-        System.out.println("Al vaciarse el Parking el ingreso va a ser de: " + test.getGanancias() + "€");
     }
-
 }

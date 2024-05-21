@@ -18,13 +18,13 @@ import java.util.List;
 public abstract class Parking implements Acciones {
 
     // Nombre del Parking
-    final String nombre;
+    public String nombre;
     // Plazas de motos
-    public final int plazasMotos;
+    public int plazasMotos;
     // Plazas de coches
-    public final int plazasCoches;
+    public int plazasCoches;
     // Lista donde se van a guardar los vehiculos que entran
-    public final List<Vehiculo> parked;
+    public List<Vehiculo> parked;
 
     public boolean status;
 
@@ -35,6 +35,9 @@ public abstract class Parking implements Acciones {
         this.plazasCoches = plazasCoches;
         parked = new ArrayList<>();
         this.status = true;
+    }
+        public Parking() {
+            
     }
 
     // Getter del nombre del Parking
@@ -66,10 +69,7 @@ public abstract class Parking implements Acciones {
         return status;
     }
 
-    // Getter para sacar la capacidad total de todos los vehiculos
-    public int getCapacidad() {
-        return getPlazasMotos() + getPlazasCoches();
-    }
+
 
     // Getter para sacar la capacidad total de las motos
     public int getCapacidadMoto() {
@@ -86,14 +86,18 @@ public abstract class Parking implements Acciones {
 
     // Getter para sacar la capacidad total de los coches
     public int getCapacidadCoche() {
-        int plazasMaxCoches = 0;
+        int plazasMaxCoche = 0;
 
         for (Vehiculo Coche : parked) {
-            if (Coche.getIdentificador() == "Coche" && plazasMaxCoches < getPlazasCoches()) {
-                plazasMaxCoches++;
+            if (Coche.getIdentificador() == "Coche" && plazasMaxCoche < getPlazas()) {
+                plazasMaxCoche++;
             }
         }
-        return plazasMaxCoches;
+        return plazasMaxCoche;
+    }
+        // Getter para sacar la capacidad total de todos los vehiculos
+    public int getCapacidad() {
+        return getCapacidadMoto() + getCapacidadCoche();
     }
 
     // Setter para introducir los vehiculos en el parking, mirando a ver si hay plazas disponibles
@@ -125,8 +129,8 @@ public abstract class Parking implements Acciones {
 
     }
 
-    public void remove(Vehiculo vehiculo){
-        parked.remove(vehiculo);
+    public void remove(String matricula){
+        parked.remove(matricula);
     }
     
     // Getter de las ganancias totales si todos los vehiculos que hubiese en el parking se marcharan

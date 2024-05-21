@@ -1,0 +1,12 @@
+  - Son Castelló -  
+***********************
+Fecha y hora:
+Tue May 21 12:06:31 CEST 2024
+
+Matricula de tu vehiculo:
+1111
+
+***********************
+Precio por vehiculo:
+Coche: 4€
+***********************
