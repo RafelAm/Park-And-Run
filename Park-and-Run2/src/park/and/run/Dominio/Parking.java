@@ -129,7 +129,7 @@ public abstract class Parking implements Acciones {
 
     }
 
-    public void remove(String matricula){
+    public void remoVehiculo(String matricula){
         parked.remove(matricula);
     }
     

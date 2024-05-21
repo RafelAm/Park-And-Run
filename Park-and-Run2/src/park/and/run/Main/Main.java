@@ -72,12 +72,13 @@ public class Main {
                     if (tipo == 1) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Coche test = new Coche(matricula, false);
+                        Coche test = new Coche(matricula.replaceAll(" ", ""), false);
                         Parking1.addVehiculo(test);
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Moto test = new Moto(matricula, false);
+                        
+                        Moto test = new Moto(matricula.replaceAll(" ", ""), false);
                         Parking1.addVehiculo(test);
                     }
 
@@ -133,12 +134,12 @@ public class Main {
                     if (tipo == 1) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Coche test = new Coche(matricula, false);
+                        Coche test = new Coche(matricula.replaceAll(" ", ""), false);
                         Parking2.addVehiculoPlantas(test);
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Moto test = new Moto(matricula, false);
+                        Moto test = new Moto(matricula.replaceAll(" ", ""), false);
                         Parking2.addVehiculoPlantas(test);
                     }
                     // Creación del Ticket 
@@ -193,12 +194,12 @@ public class Main {
                     if (tipo == 1) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Coche test = new Coche(matricula, false);
+                        Coche test = new Coche(matricula.replaceAll(" ", ""), false);
                         Parking3.addVehiculoPlantas(test);
                     } else if (tipo == 2) {
                         System.out.println("Introduce tu matricula");
                         matricula = sc.nextLine();
-                        Moto test = new Moto(matricula, false);
+                        Moto test = new Moto(matricula.replaceAll(" ", ""), false);
                         Parking3.addVehiculoPlantas(test);
                     }
                     try {
@@ -258,7 +259,7 @@ public class Main {
                             System.out.println("3. Ver Ganancias Totales");
                             System.out.println("4. Llamar a la grua");
                             System.out.println("5. Salir");
-                            opcAvz = sc.nextInt();
+                            opcAvz = Integer.parseInt(sc.next());
                             switch (opcAvz) {
                                 case 1:
                                     System.out.println("Indica el Parking que quieres ver los vehiculos Aparcados");
@@ -316,37 +317,40 @@ public class Main {
                                     System.out.println("3. " + Parking3.getNombre());
                                     System.out.println("Introduce el numero de parking");
                                     int park1 = sc.nextInt();
-                                    switch(park1){
+                                    switch (park1) {
                                         case 1:
-                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
-                                        String matricula1 = sc.next();
-                                        Parking1.remove(matricula1);
-                                        System.out.println(Parking1.getParked());
-                                        break;
+                                            System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                            System.out.println(Parking1.getParked());
+                                            String matricula1 = sc.next();
+
+                                            Parking1.remoVehiculo(matricula1);
+
+                                            break;
                                         case 2:
-                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
-                                        matricula1 = sc.next();
-                                        Parking2.remVehiculo(matricula1);
-                                        System.out.println(Parking2.getParked());
-                                        break;
+                                            System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                            System.out.println(Parking2.getParked());
+                                            matricula1 = sc.next();
+                                            Parking2.remVehiculo(matricula1);
+
+                                            break;
                                         case 3:
-                                        System.out.println("Indica la matricula del vehiculo que quieres sacar:");
-                                        matricula1 = sc.nextLine();
-                                        Parking3.remVehiculo(matricula1);
-                                        System.out.println(Parking3.getParked());
-                                        break;
+                                            System.out.println("Indica la matricula del vehiculo que quieres sacar:");
+                                            System.out.println(Parking3.getParked());
+                                            matricula1 = sc.next();
+                                            Parking3.remVehiculo(matricula1);
+                                            
+                                            break;
                                     }
                                     opcAvz = 0;
                                     break;
-                                    
 
                             }
-                            opcionParking = 4;
+                            opcionParking = 5;
                         } while (opcAvz != 5);
                     }
                     break;
             }
         } while (opcionParking != 5);
-        
+
     }
 }

@@ -142,7 +142,12 @@ public class MegaParking extends Parking {
     }
     
     public void remVehiculo(String matricula){
-        parked.remove(matricula);
+        for(Vehiculo vehiculo: parked){
+            if(vehiculo.getMatricula() == matricula){
+                parked.remove(vehiculo);
+            }
+            
+        }
     }
     
     public void revTickets(){
@@ -155,5 +160,6 @@ public class MegaParking extends Parking {
     public void add() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
 }
