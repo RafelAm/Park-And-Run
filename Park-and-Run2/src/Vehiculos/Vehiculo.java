@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Vehiculos;
 
 
@@ -33,9 +29,11 @@ public abstract class Vehiculo{
     public String getMatricula(){
         return matricula;
     }
-    
+    // toString que debe ser reescrito en las clases hijas
     public abstract String toString();
-
+    
+    
+    // Auto Generaciones NetBeans
     public String getIdentificador() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

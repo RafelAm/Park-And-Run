@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package park.and.run.Dominio;
 
 import Exceptions.NotSpaceForParking;
@@ -36,7 +32,7 @@ public abstract class Parking implements Acciones {
         parked = new ArrayList<>();
         this.status = true;
     }
-
+    // Constructor vacio
     public Parking() {
 
     }
@@ -65,7 +61,7 @@ public abstract class Parking implements Acciones {
     public List<Vehiculo> getParked() {
         return parked;
     }
-
+    // Getter para ver el estado del parking
     public boolean getSatus() {
         return status;
     }
@@ -95,7 +91,6 @@ public abstract class Parking implements Acciones {
         return plazasMaxCoche;
     }
     // Getter para sacar la capacidad total de todos los vehiculos
-
     public int getCapacidad() {
         return getCapacidadMoto() + getCapacidadCoche();
     }
@@ -118,7 +113,7 @@ public abstract class Parking implements Acciones {
             System.out.println(e.getMessage());
         }
     }
-
+    // Setter para introducir los vehiculos en el parking, mirando a ver si hay plazas disponibles
     public void addVehiculo(Moto Moto) {
         try {
             if (getCapacidadMoto() == getPlazasMotos()) {
@@ -136,7 +131,7 @@ public abstract class Parking implements Acciones {
         }
 
     }
-
+    // Eliminar vehiculo del Parking (ArrayList)
     public void remVehiculo(String matricula) {
         for (int i = 0; i < parked.size(); i++) {
             if (matricula.equals(parked.get(i).getMatricula())) {
@@ -173,15 +168,15 @@ public abstract class Parking implements Acciones {
         }
         return trabajadores;
     }
-
+    // Metodo de la Interface Acciones para apagar luces
     public void apagarLuces() {
         System.out.println("Apagando luces");
     }
-
+    // Metodo de la Interface Acciones para encender luces
     public void encenderLuces() {
         System.out.println("Encendiendo luces");
     }
-
+    // Metodo de la Interface Acciones para cerrar puertas y apagar luces
     public void cerrarPuertas() {
         if (status == true) {
             System.out.println("Cerrando puertas.");
@@ -191,7 +186,7 @@ public abstract class Parking implements Acciones {
             System.out.println("El parking ya esta cerrado.");
         }
     }
-
+    // Metodo de la Interface Acciones para abrir puertas y encender luces
     public void abrirPuertas() {
         if (status == false) {
             System.out.println("Abriendo puertas.");

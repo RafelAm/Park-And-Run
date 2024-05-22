@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package park.and.run.Dominio;
 
 import Exceptions.NotSpaceForParking;
-import Tickets.WriteTicket;
 import Vehiculos.Coche;
 import Vehiculos.Moto;
 import Vehiculos.Vehiculo;
@@ -19,11 +14,6 @@ import java.sql.SQLException;
  * @author raffs
  */
 public class MegaParking extends Parking {
-
-    static Parking getLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     // Integer del numero de plantas que tiene el parking.
     private int plantas;
 
@@ -32,7 +22,7 @@ public class MegaParking extends Parking {
         super(nombre, plazasMotos, plazasCoches);
         this.plantas = plantas;
     }
-
+    // Constructor vacio
     public MegaParking() {
 
     }
@@ -79,7 +69,7 @@ public class MegaParking extends Parking {
         }
         return plazasMaxMoto;
     }
-
+    // Getter para sacar la capacidad de las plantas
     public int getCapacidadPlantas() {
         return getCapacidadCoches() + getCapacidadMotos();
     }
@@ -102,7 +92,7 @@ public class MegaParking extends Parking {
             System.out.println(e.getMessage());
         }
     }
-
+    // Setter para introducir los vehiculos en el parking, mirando a ver si hay plazas disponibles
     public void addVehiculoPlantas(Moto Moto) {
         try {
             if (getCapacidadMotos() == getPlazasPorPlantaMoto()) {
@@ -120,7 +110,7 @@ public class MegaParking extends Parking {
         }
 
     }
-
+    // Metodo para introducir cada Vehiculo en la base de datos con toda la información de estos
     public void addVehiculosSQL(String url, String usuario, String contraseña) {
         try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña)) {
             // Sentencia SQL de inserción con parámetros
@@ -138,7 +128,7 @@ public class MegaParking extends Parking {
                     // Ejecutar la sentencia SQL de inserción
                     int filasAfectadas = pstmt.executeUpdate();
 
-                    // Verificar si la inserción fue exitosa
+                    // Verificar si la conexión ha sido buena
                     if (filasAfectadas > 0) {
                         System.out.println("Datos insertados correctamente.");
                     } else {
@@ -150,7 +140,7 @@ public class MegaParking extends Parking {
             System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
     }
-
+    // Eliminar vehiculo del Parking (ArrayList)
     public void remVehiculo(String matricula) {
         for (int i = 0; i < parked.size(); i++) {
 
@@ -161,14 +151,7 @@ public class MegaParking extends Parking {
 
         }
     }
-
-    public void revTickets() {
-        WriteTicket t;
-        for (int i = 0; i < parked.size(); i++) {
-            t = new WriteTicket();
-        }
-    }
-
+    // Auto Generaciones de NetBeans
     public void add() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

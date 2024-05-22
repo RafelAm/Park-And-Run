@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package park.and.run.Dominio;
 
 /**
  *
  * @author raffs
  */
+// Interfaz que define metodos de acciones para el Parking
+// Estos se deben reescribir en las clases hijas
 public interface Acciones {
     
     public void apagarLuces();
